@@ -1,43 +1,69 @@
 package racer_local;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-@SuppressWarnings("serial")
-public class Racer extends JPanel {
-
-	int x = 0;
-	int y = 0;
-
-	private void moveCar() {
-		x = x + 1;
-		y = y + 1;
+public class Racer{
+	public int x;
+	public int y;
+	public String color;
+	public int[] coords = new int[2];
+	
+	public Racer(int startX, String carColor){
+		x = startX;
+		y = 0;
+		color = carColor;
 	}
-
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.fillOval(x, y, 30, 30);
+	public void moveCar(int xChange, int yChange){
+		x += xChange;
+		y += yChange;
 	}
-
-	public static void main(String[] args) throws InterruptedException {
-		JFrame raceTrack = new JFrame("Mini Tennis");
-		Racer racer = new Racer();
-		raceTrack.add(racer);
-		raceTrack.setSize(300, 400);
-		raceTrack.setVisible(true);
-		raceTrack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		while (true) {
-			racer.moveCar();
-			racer.repaint();
-			Thread.sleep(10);
-		}
+	public int[] getCoords(){
+		coords[0] = x;
+		coords[1] = y;
+		return coords;
 	}
 }
+
+/*public class Employee {
+public String name;
+public double salary;
+public String jobDescription;
+public int yearsEmployed;
+
+public Employee(String startName, double startSalary, String startJobDescription, int startYearsEmployed){
+	salary = startSalary;
+	yearsEmployed = startYearsEmployed;
+	name = startName;
+	jobDescription = startJobDescription;
+}
+public void doWork(){
+	System.out.println("I Work Too Hard");
+	yearsEmployed++;
+	salary *= 1.05;
+}
+
+public void printDetails(){
+	System.out.println("Name: " + name + "\n"
+					+ "Salary: " + Math.round(salary * 100.0) / 100.0 + "\n"
+					+ "Job Description: " + jobDescription + "\n"
+					+ "Years Employed: " + yearsEmployed);
+}
+}*//*
+private int x = 1;
+private String departmentName;
+
+public Racer(String startName, double startSalary, String startJobDescription, int startYearsEmployed, String startDepartmentName) {
+	super(startName, startSalary, startJobDescription, startYearsEmployed);
+	departmentName = startDepartmentName;
+	}
+
+public void doWork(){
+	System.out.println("Go Back to Work People!");
+	numOnTeam = numOnTeam + 2;
+	
+	super.doWork();
+}
+
+public void printDetails(){
+	super.printDetails();
+	System.out.println("Department Name: " + departmentName + "\n"
+					+ "Number On Team: " + numOnTeam);
+}*/

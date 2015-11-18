@@ -1,28 +1,43 @@
+/* TODO
+ * Create Window
+ * Create Grid
+ * Create track outline
+ * Create car
+ * Create ways to move car.
+ * 
+ */
 package racer_local;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.JPanel;
 import racer_local.Racer;
 
-//@SuppressWarnings("serial")
-//public class RaceTrack extends JPanel{
-//	public static void main(String[] args){
-//		Racer racer1 = new Racer(0, "red");
-//		racer1.moveCar(0, 1);
-//		int[] coords = racer1.getCoords();
-//	}
-//}
-public class RaceTrack{
+public class RaceTrack extends JFrame{
+//	JTextField xChange;
+//	JTextField yChange;
 	public static void main(String[] args){
-		Racer racer1 = new Racer(5, "red");
-		racer1.moveCar(1, 1);
-		int[] coords = racer1.getCoords();
-		System.out.println(Arrays.toString(coords));
+		Scanner scan = new Scanner(System.in);
+		Racer racer = new Racer(2, "red");
+		boolean race = true;
+		int xChange = 0;
+		int yChange;
+		while(xChange >= -1 && xChange <= 1){
+			// Implement something so that this doesn't accept input outside acceptable range.
+			System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");
+			xChange = scan.nextInt();
+			System.out.print("Please enter a change in y velocity (-1, 0, or 1): ");
+			yChange = scan.nextInt();
+			racer.moveCar(xChange, yChange);
+			System.out.println("Coords: " + Arrays.toString(racer.getCoords()) + " Velocities: " +
+			Arrays.toString(racer.getVelocity()));
+		}
 	}
 }
 

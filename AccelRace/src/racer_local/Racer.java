@@ -5,15 +5,25 @@ public class Racer{
 	public int y;
 	public String color;
 	public int[] coords = new int[2];
+	public int xVelocity;
+	public int yVelocity;
 	
 	public Racer(int startX, String carColor){
 		x = startX;
 		y = 0;
 		color = carColor;
+		xVelocity = 0;
+		yVelocity = 0;
 	}
 	public void moveCar(int xChange, int yChange){
-		x += xChange;
-		y += yChange;
+		xVelocity += xChange;
+		yVelocity += yChange;
+		x += xVelocity;
+		y += yVelocity;
+	}
+	public int[] getVelocity(){
+		int[] velocities = {xVelocity, yVelocity};
+		return velocities;
 	}
 	public int[] getCoords(){
 		coords[0] = x;

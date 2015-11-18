@@ -1,79 +1,56 @@
+/* TODO
+ * Create Window
+ * Create Grid
+ * Create track outline
+ * Create car
+ * Create ways to move car.
+ * 
+ */
 package racer_local;
 
-public class Racer{
-	public int x;
-	public int y;
-	public String color;
-	public int[] coords = new int[2];
-	public int xVelocity;
-	public int yVelocity;
-	
-	public Racer(int startX, String carColor){
-		x = startX;
-		y = 0;
-		color = carColor;
-		xVelocity = 0;
-		yVelocity = 0;
-	}
-	public void moveCar(int xChange, int yChange){
-		xVelocity += xChange;
-		yVelocity += yChange;
-		x += xVelocity;
-		y += yVelocity;
-	}
-	public int[] getVelocity(){
-		int[] velocities = {xVelocity, yVelocity};
-		return velocities;
-	}
-	public int[] getCoords(){
-		coords[0] = x;
-		coords[1] = y;
-		return coords;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.util.Arrays;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import racer_local.Car;
+
+public class Racer extends JFrame{
+//	JTextField xChange;
+//	JTextField yChange;
+	public static void main(String[] args){
+		Scanner scan = new Scanner(System.in);
+		Car racer = new Car(2, "red");
+		/*boolean race = true;
+		int xChange = 0;
+		int yChange;
+		while(xChange >= -1 && xChange <= 1){
+			// Implement something so that this doesn't accept input outside acceptable range.
+			System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");
+			xChange = scan.nextInt();
+			System.out.print("Please enter a change in y velocity (-1, 0, or 1): ");
+			yChange = scan.nextInt();
+			racer.moveCar(xChange, yChange);
+			System.out.println("Coords: " + Arrays.toString(racer.getCoords()) + " Velocities: " +
+			Arrays.toString(racer.getVelocity()));
+			}
+			*/
+		JFrame raceTrack = new JFrame("Mini Tennis");
+		Racer game = new Racer();
+		raceTrack.add(game);
+		raceTrack.setSize(700, 500);
+		raceTrack.setVisible(true);
+		raceTrack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		while (true) {
+			// Ahh figure this out.
+			game.moveCar();
+			game.repaint();
+			Thread.sleep(10);
+		}
 	}
 }
-
-/*public class Employee {
-public String name;
-public double salary;
-public String jobDescription;
-public int yearsEmployed;
-
-public Employee(String startName, double startSalary, String startJobDescription, int startYearsEmployed){
-	salary = startSalary;
-	yearsEmployed = startYearsEmployed;
-	name = startName;
-	jobDescription = startJobDescription;
-}
-public void doWork(){
-	System.out.println("I Work Too Hard");
-	yearsEmployed++;
-	salary *= 1.05;
-}
-
-public void printDetails(){
-	System.out.println("Name: " + name + "\n"
-					+ "Salary: " + Math.round(salary * 100.0) / 100.0 + "\n"
-					+ "Job Description: " + jobDescription + "\n"
-					+ "Years Employed: " + yearsEmployed);
-}
-}*//*
-private int x = 1;
-private String departmentName;
-
-public Racer(String startName, double startSalary, String startJobDescription, int startYearsEmployed, String startDepartmentName) {
-	super(startName, startSalary, startJobDescription, startYearsEmployed);
-	departmentName = startDepartmentName;
-	}
-
-public void doWork(){
-	System.out.println("Go Back to Work People!");
-	numOnTeam = numOnTeam + 2;
-	
-	super.doWork();
-}
-
-public void printDetails(){
-	super.printDetails();
-	System.out.println("Department Name: " + departmentName + "\n"
-					+ "Number On Team: " + numOnTeam);
-}*/

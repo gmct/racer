@@ -34,12 +34,19 @@ public class Racer extends JFrame{
 		raceTrack.setVisible(true);
 		raceTrack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		while(xChange >= -1 && xChange <= 1){
-			// Implement something so that this doesn't accept input outside acceptable range.
+		while(true){
 			System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");
 			xChange = scan.nextInt();
+			if (xChange < -1 || xChange > 1){
+				System.out.println("Invalid parameter.");
+				continue;
+			}
 			System.out.print("Please enter a change in y velocity (-1, 0, or 1): ");
 			yChange = scan.nextInt();
+			if (yChange < -1 || yChange > 1){
+				System.out.println("Invalid parameter.");
+				continue;
+			}
 			racer.moveCar(xChange, yChange);
 			int[] coords = racer.getCoords();
 			paint(coords[0]* 5, 500 - coords[1] * 5, 20, 20);

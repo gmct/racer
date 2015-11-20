@@ -23,12 +23,13 @@ import racer_local.Car;
 public class Racer extends JFrame{
 	static JFrame raceTrack = new JFrame("Racer");
 	
+	
 	public static void main(String[] args){
+		// Graphics g2 = raceTrack.getGraphics();
 		Scanner scan = new Scanner(System.in);
 		Car racer = new Car(2, "red");
 		int xChange = 0;
 		int yChange;
-		
 		
 		raceTrack.setSize(700, 500);
 		raceTrack.setVisible(true);
@@ -41,21 +42,24 @@ public class Racer extends JFrame{
 				System.out.println("Invalid parameter.");
 				continue;
 			}
+			
 			System.out.print("Please enter a change in y velocity (-1, 0, or 1): ");
 			yChange = scan.nextInt();
 			if (yChange < -1 || yChange > 1){
 				System.out.println("Invalid parameter.");
 				continue;
 			}
+			
 			racer.moveCar(xChange, yChange);
 			int[] coords = racer.getCoords();
-			paint(coords[0]* 5, 500 - coords[1] * 5, 20, 20);
-			}
+			paint(coords[0]* 5, 500 - coords[1] * 5, 5, 5);
+		}
 	}
 	public static void paint(int x,int y,int XSIZE,int YSIZE) {
 		  Graphics g = raceTrack.getGraphics();
 		  g.setColor(Color.red);
 		  g.fillOval(x, y, XSIZE, YSIZE);
+		  g.drawLine(x, y, 100, 100);
 		  g.dispose();
 	}
 }

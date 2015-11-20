@@ -5,6 +5,7 @@ public class Car{
 	public int y;
 	public String color;
 	public int[] coords = new int[2];
+	public int[] lastCoords = new int[2];
 	public int xVelocity;
 	public int yVelocity;
 	
@@ -29,6 +30,11 @@ public class Car{
 		coords[0] = x;
 		coords[1] = y;
 		return coords;
+	}
+	public int[] getLastCoords(){
+		lastCoords[0] = coords[0] - xVelocity;
+		lastCoords[1] = coords[1] - yVelocity;
+		return lastCoords;
 	}
 }
 

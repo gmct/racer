@@ -11,29 +11,27 @@ package racer_local;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import racer_local.Car;
 
+@SuppressWarnings("serial")
 public class Racer extends JFrame{
 	static JFrame raceTrack = new JFrame("Racer");
 	
-	
 	public static void main(String[] args){
-		// Graphics g2 = raceTrack.getGraphics();
 		Scanner scan = new Scanner(System.in);
 		Car racer = new Car(2, "red");
 		int xChange = 0;
 		int yChange;
-		
 		raceTrack.setSize(700, 500);
 		raceTrack.setVisible(true);
 		raceTrack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		drawGrid(700, 500);
 		
 		while(true){
 			System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");
@@ -51,15 +49,15 @@ public class Racer extends JFrame{
 			}
 			
 			racer.moveCar(xChange, yChange);
-			int[] coords = racer.getCoords();
-			paint(coords[0]* 5, 500 - coords[1] * 5, 5, 5);
 		}
 	}
-	public static void paint(int x,int y,int XSIZE,int YSIZE) {
-		  Graphics g = raceTrack.getGraphics();
-		  g.setColor(Color.red);
-		  g.fillOval(x, y, XSIZE, YSIZE);
-		  g.drawLine(x, y, 100, 100);
-		  g.dispose();
+	public static void drawGrid(int XSIZE, int YSIZE){
+		// Code broken. Figure out how to draw line here and then reimplement for loops.
+		Graphics g = raceTrack.getGraphics();
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setPaint(Color.black);
+		g2d.drawLine(40, 70, 100, 90);
+		g2d.dispose();
+		g.dispose();
 	}
 }

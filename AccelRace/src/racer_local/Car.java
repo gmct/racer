@@ -29,6 +29,7 @@ public class Car extends Racer{
 		// Visualizes the movement of the car.
 		Graphics g = raceTrack.getGraphics();
 		g.setColor(Color.red);
+		// drawVelocity(g);
 		drawCar(g);
 		g.dispose();
 	}
@@ -43,6 +44,11 @@ public class Car extends Racer{
 		// TODO: Separate this code into more easy to read lines. Maybe do this by making graphX/Y vars.
 		g2d.drawLine(xOld * 6 + 3, 500 - (yOld * 6 - 3), x * 6 + 3, 500 - (y * 6 - 3));
 		g2d.dispose();
+	}
+	
+	private void drawVelocity(Graphics g){
+		// For some reason this line causes program to freeze.
+		 g.drawString(Integer.toString(xVelocity), 20, 30);
 	}
 	public int[] getVelocity(){
 		int[] velocities = {xVelocity, yVelocity};

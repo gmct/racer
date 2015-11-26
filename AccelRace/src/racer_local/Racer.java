@@ -1,10 +1,10 @@
 /* TODO
- * Create Window
- * Create Grid
+ * Create Window - Done
+ * Create Grid - WIP. Learn how to draw lines.
  * Create track outline
- * Create car
- * Create ways to move car.
- * 
+ * Create car - Done
+ * Create ways to move car - WIP. Need to implement in GUI.
+ * Draw car at start line.
  */
 package racer_local;
 

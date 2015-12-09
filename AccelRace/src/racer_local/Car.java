@@ -31,6 +31,7 @@ public class Car extends Racer{
 		g.setColor(Color.red);
 		// drawVelocity(g);
 		drawCar(g);
+		//drawGrid(g, 700, 500);
 		g.dispose();
 	}
 	
@@ -40,9 +41,10 @@ public class Car extends Racer{
 		
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setPaint(Color.red);
-		g2d.fillOval(x * 6, 500 - y * 6, 6, 6);
+		g2d.fillOval(x * 10, 500 - y * 10, 10, 10);
 		// TODO: Separate this code into more easy to read lines. Maybe do this by making graphX/Y vars.
-		g2d.drawLine(xOld * 6 + 3, 500 - (yOld * 6 - 3), x * 6 + 3, 500 - (y * 6 - 3));
+		g2d.drawLine(xOld * 10 + 5, 500 - (yOld * 10 - 5), x * 10 + 5, 500 - (y * 10 - 5));
+		g2d.setPaint(Color.black);
 		g2d.dispose();
 	}
 	
@@ -50,6 +52,7 @@ public class Car extends Racer{
 		// For some reason this line causes program to freeze.
 		 g.drawString(Integer.toString(xVelocity), 20, 30);
 	}
+	
 	public int[] getVelocity(){
 		int[] velocities = {xVelocity, yVelocity};
 		return velocities;

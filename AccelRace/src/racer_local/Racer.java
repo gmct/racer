@@ -11,6 +11,7 @@ package racer_local;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -26,38 +27,57 @@ public class Racer extends JFrame{
 	public static void main(String[] args){
 		Scanner scan = new Scanner(System.in);
 		Car racer = new Car(2, "red");
-		int xChange = 0;
+		int xChange;
 		int yChange;
 		raceTrack.setSize(700, 500);
 		raceTrack.setVisible(true);
 		raceTrack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		drawGrid(700, 500);
+		//racer.drawGrid(700, 500);
 		
 		while(true){
 			System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");
-			xChange = scan.nextInt();
-			if (xChange < -1 || xChange > 1){
-				System.out.println("Invalid parameter.");
+			// Temporary solution until I can implement a GUI based input.
+			try{
+				xChange = Integer.parseInt(scan.nextLine());
+				if (xChange < -1 || xChange > 1){
+					System.out.println("Invalid parameter.");
+					continue;
+				}
+			} catch (NumberFormatException e){
+				System.err.println("Invalid input.");
+				System.out.println();
 				continue;
 			}
 			
 			System.out.print("Please enter a change in y velocity (-1, 0, or 1): ");
-			yChange = scan.nextInt();
-			if (yChange < -1 || yChange > 1){
-				System.out.println("Invalid parameter.");
+			
+			try{
+				yChange = Integer.parseInt(scan.nextLine());
+				if (yChange < -1 || yChange > 1){
+					System.out.println("Invalid parameter.");
+					continue;
+				}
+			}catch(NumberFormatException e){
+				System.err.println("Invalid input.");
+				System.out.println();
 				continue;
 			}
 			
 			racer.moveCar(xChange, yChange);
 		}
 	}
-	public static void drawGrid(int XSIZE, int YSIZE){
-		// Code broken. Figure out how to draw line here and then reimplement for loops.
-		Graphics g = raceTrack.getGraphics();
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setPaint(Color.black);
-		g2d.drawLine(40, 70, 100, 90);
-		g2d.dispose();
-		g.dispose();
-	}
+//	public static void drawGrid(int XSIZE, int YSIZE){
+//		// Code broken. Figure out how to draw line here and then reimplement for loops.
+//		// Separate code into RaceTrack which will handle the graphics for the raceTrack.
+//		Graphics g = raceTrack.getGraphics();
+//		Graphics2D g2d = (Graphics2D) g;
+//		g2d.setPaint(Color.black);
+//		for (int i = 5; i < XSIZE; i += 5){
+//			g2d.drawLine(i, 0, i, YSIZE);
+//		}
+//		for (int i = 5; i < YSIZE; i += 5){
+//			g2d.drawLine(0, i, XSIZE, i);
+//		}
+//		g2d.dispose();
+//	}
 }

@@ -4,14 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class Car extends Racer{
+import racer_local.*;
+
+public class Car{
 	public int x;
 	public int y;
 	public String color;
-	public int[] coords = new int[2];
-	public int[] lastCoords = new int[2];
-	public int xVelocity;
-	public int yVelocity;
+	private int[] coords = new int[2];
+	private int[] lastCoords = new int[2];
+	private int xVelocity;
+	private int yVelocity;
 	
 	public Car(int x, String color){
 		this.x = x;
@@ -27,12 +29,12 @@ public class Car extends Racer{
 		y += yVelocity;
 		
 		// Visualizes the movement of the car.
-		Graphics g = raceTrack.getGraphics();
-		g.setColor(Color.red);
-		// drawVelocity(g);
-		drawCar(g);
+		//Graphics g = raceTrack.getGraphics();
+		//g.setColor(Color.red);
+		//drawVelocity(g);
+		//drawCar(g);
 		//drawGrid(g, 700, 500);
-		g.dispose();
+		//g.dispose();
 	}
 	
 	private void drawCar(Graphics g){
@@ -45,7 +47,6 @@ public class Car extends Racer{
 		// TODO: Separate this code into more easy to read lines. Maybe do this by making graphX/Y vars.
 		g2d.drawLine(xOld * 10 + 5, 500 - (yOld * 10 - 5), x * 10 + 5, 500 - (y * 10 - 5));
 		g2d.setPaint(Color.black);
-		g2d.dispose();
 	}
 	
 	private void drawVelocity(Graphics g){

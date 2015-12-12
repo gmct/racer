@@ -13,16 +13,23 @@ import racer_active_animation.*;
 @SuppressWarnings("serial")
 public class Racer {
     public static void main(String[] args) throws InterruptedException {
-        JFrame frame = new JFrame("Sample Frame");
+    	Scanner scan = new Scanner(System.in);
+    	// TODO Enable user to simply click on a point on the starting line.
+    	// TODO Draw a start line you lazy piece of crap, it's literally one line of code.
+        System.out.print("Enter position on the start line (2 - 13): ");
+        int startX = scan.nextInt();
+        
+        JFrame frame = new JFrame("Racer");
         RaceTrack raceTrack = new RaceTrack();
         frame.add(raceTrack);
         frame.setSize(700, 500);
+        frame.setTitle("Racer");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Scanner scan = new Scanner(System.in);
-        Car racer = new Car(raceTrack, 5, "red");
+        Car racer = new Car(raceTrack, startX, "red");
         int xChange, yChange;
+        raceTrack.repaint();
         
         while (true) {
         	System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");

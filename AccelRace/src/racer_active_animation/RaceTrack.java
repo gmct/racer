@@ -25,6 +25,11 @@ public class RaceTrack extends JPanel {
             RenderingHints.VALUE_ANTIALIAS_ON);
         
         // Draws the grid
+        /*
+         * It appears as if the height of the window includes the top bar with controls.
+         * Should implement this to be a panel in a window so that the height will be representative of the visible window.
+         * TODO Make graphics appear within a panel which also features text input.
+         */
         g2d.setPaint(Color.GRAY);
         for (int i = squareSize; i < this.getHeight(); i += squareSize) {
         	g2d.drawLine(0, i, this.getWidth(), i);
@@ -37,6 +42,7 @@ public class RaceTrack extends JPanel {
         g2d.setPaint(Color.BLACK);
         g2d.drawRect(150, 170, 400, 350);
         g2d.drawRect(20, 20, 660, 500);
+        g2d.drawLine(20, 470, 150, 470);
         
         // Draws the car
         g2d.setPaint(Color.RED);

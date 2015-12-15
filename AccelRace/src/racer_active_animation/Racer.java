@@ -15,7 +15,6 @@ public class Racer {
     public static void main(String[] args) throws InterruptedException {
     	Scanner scan = new Scanner(System.in);
     	// TODO Enable user to simply click on a point on the starting line.
-    	// TODO Draw a start line you lazy piece of crap, it's literally one line of code.
         System.out.print("Enter position on the start line (2 - 13): ");
         int startX = scan.nextInt();
         

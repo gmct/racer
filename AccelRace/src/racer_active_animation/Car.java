@@ -26,7 +26,7 @@ public class Car{
 		this.raceTrack = raceTrack;
 		raceTrack.setCoords(x, y);
 	}
-	public void moveCar(int xChange, int yChange){
+	public void moveCar(int xChange, int yChange) throws InterruptedException{
 		/**
 		 * This method changes the velocity and position of the car.
 		 * The inputs should only be done in increments of 1 or 0
@@ -39,6 +39,12 @@ public class Car{
 		y += yVelocity;
 		// TODO Change this implementation so that the in between points are animated.
 		raceTrack.setCoords(x, y);
+		// This breaks the game.
+//		for (int i = 1; i < 3; i++) {
+//			raceTrack.setCoords((int)(x/3.0 * i), (int)(y/3.0 * i));
+//			raceTrack.repaint();
+//			Thread.sleep(10);
+//		}
 	}
 	
 	

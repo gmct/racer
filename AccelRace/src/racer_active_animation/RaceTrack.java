@@ -30,13 +30,14 @@ public class RaceTrack extends JPanel {
          * Should implement this to be a panel in a window so that the height will be representative of the visible window.
          * TODO Make graphics appear within a panel which also features text input.
          */
-        g2d.setPaint(Color.GRAY);
-        for (int i = squareSize; i < this.getHeight(); i += squareSize) {
-        	g2d.drawLine(0, i, this.getWidth(), i);
-        }
-        for (int j = squareSize; j < this.getWidth(); j += squareSize) {
-        	g2d.drawLine(j, 0, j, this.getHeight());
-        }
+//        g2d.setPaint(Color.GRAY);
+//        for (int i = squareSize; i < this.getHeight(); i += squareSize) {
+//        	g2d.drawLine(0, i, this.getWidth(), i);
+//        }
+//        for (int j = squareSize; j < this.getWidth(); j += squareSize) {
+//        	g2d.drawLine(j, 0, j, this.getHeight());
+//        }
+        drawGrid(g2d);
         
         // Draws the raceTrack
         g2d.setPaint(Color.BLACK);
@@ -84,5 +85,15 @@ public class RaceTrack extends JPanel {
     	 */
     	y = this.getHeight() - y * squareSize;
     	return y;
+    }
+    
+    private void drawGrid(Graphics2D g2d){
+    	g2d.setPaint(Color.GRAY);
+        for (int i = squareSize; i < this.getHeight(); i += squareSize) {
+        	g2d.drawLine(0, i, this.getWidth(), i);
+        }
+        for (int j = squareSize; j < this.getWidth(); j += squareSize) {
+        	g2d.drawLine(j, 0, j, this.getHeight());
+        }
     }
 }

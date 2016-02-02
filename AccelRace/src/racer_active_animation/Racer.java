@@ -1,5 +1,6 @@
 package racer_active_animation;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -7,6 +8,8 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 
 import racer_active_animation.*;
 
@@ -31,6 +34,7 @@ public class Racer {
         raceTrack.repaint();
         
         while (true) {
+        	
         	System.out.print("Please enter a change in x velocity (-1, 0, or 1): ");
 			xChange = scan.nextInt();
 			if (xChange < -1 || xChange > 1){
@@ -43,6 +47,12 @@ public class Racer {
 			if (yChange < -1 || yChange > 1){
 				System.out.println("Invalid parameter.");
 				continue;
+			}
+			for (int i = 0; i < xChange * 3; i++) {
+
+				racer.moveCar(xChange, yChange);
+				raceTrack.repaint();
+				Thread.sleep(10);
 			}
 			racer.moveCar(xChange, yChange);
 			raceTrack.repaint();

@@ -35,6 +35,7 @@ package beta_final_animation;
  * Possibly less horizontal resolution and throw in a table of previous moves + chat.
  * Change rules of game possibly to make it more conducive to this digital format.
  * Decide whether or not to show trace of past locations.
+ * Change name.
  */
 
 import java.util.logging.Level;

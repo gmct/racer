@@ -1,8 +1,7 @@
 package beta_final_animation;
-
 /*
  * TODO
- * Separate into server and client class ASAP.
+ * Separate into server and client class ASAP. -- This is difficult to do with classes. Delayed until networking is figured out.
  * Move start line detection to server and have server present starting options.
  * Make x and y sync with server class on each update.
  * Import other player's positions.
@@ -16,27 +15,8 @@ package beta_final_animation;
  * THIS
  */
 
-/*
- * Long Term
- * Implement UDP connection unless UDP proves to not be a good implementation.
- * Make startLine pos selection live between all players.
- * Implement chat.
- * Add cool explosion animation. If player's are going to collide with wall have animation move them to that point then show explosion.
- * Follow last feature by a "pit crew" towing the car back to its last position over the course of three turns.
- * First two turns have pit crew doing repair animation while other players move and third turn have pit crew towing car back to last location while other players move.
- * reddit silveresque badge on screen if player gets hit immediately after getting towed back to last location.
- * Make custom map file input allowing players to specify wall color, track color and any special rules.
- */
+import java.util.Scanner;
 
-/*
- * Subjective
- * Choose resolution for maps. 
- * Leaning towards a 16:9 aspect ratio. Maybe 1440x810 to accommodate lower res screens while still maintaining a good aspect ratio on higher res.
- * Possibly less horizontal resolution and throw in a table of previous moves + chat.
- * Change rules of game possibly to make it more conducive to this digital format.
- * Decide whether or not to show trace of past locations.
- * Change name.
- */
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +26,11 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
+import org.newdawn.slick.gui.TextField;
 
 public class Racer extends BasicGame {
 	// track can not be defined here due to throwing a SlickException.
@@ -54,6 +38,10 @@ public class Racer extends BasicGame {
 	Color wall = new Color(70, 70, 70);
 	Color gridLine = new Color(128, 128, 128);
 	int startPositions, firstStart;
+	int x, y, lastX, lastY, xVelocity, yVelocity;
+	TextField xInput, yInput;
+	String message;
+	
 	public Racer(String gamename) {
 		super(gamename);	
 	}
@@ -62,7 +50,7 @@ public class Racer extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		track = new Image("res/Racetrack1.jpg");
 		int wallBlocksEncountered = 0;
-		int x = 10;
+		int ticker = 0;
 		boolean inWall = false;
 		
 		/*
@@ -73,30 +61,98 @@ public class Racer extends BasicGame {
 		
 		// TODO Clean this up, remove any redundancies. Move it server side.
 		while (wallBlocksEncountered < 2) {
-			if (wall.equals(track.getColor(x, 490)) && !inWall) {
+			if (wall.equals(track.getColor(ticker, 490)) && !inWall) {
 				wallBlocksEncountered++;
 				inWall = true;
 			} else if (!inWall && firstStart <= 0) {
-				firstStart = x;
+				firstStart = ticker;
 				startPositions++;
 			} else {
 				startPositions++;
 			}
-			if (track.getColor(x, 490).equals(gridLine)) {
+			if (track.getColor(ticker, 490).equals(gridLine)) {
 				inWall = false;
 			}
-			x += 10;
+			ticker += 10;
 		}
+		
+//		// This is bad code and you should feel bad.
+//		Scanner scan = new Scanner(System.in);
+//		// TODO Trace code and find where this off by 2 error is coming from.
+//		System.out.print("Enter starting position 1-" + (startPositions - 2) + ": ");
+//		int startInput = scan.nextInt();
+//		x = firstStart - 20 + startInput * 10;
+//		y = 490;
+//		scan.close();
+		x = 100;
+		y = 490;
+		
+		xInput = new TextField(gc, gc.getDefaultFont(), 220,470,40,20, new ComponentListener()
+        {
+	         public void componentActivated(AbstractComponent source) {
+	            message = "Entered1: "+xInput.getText();
+	            xInput.setFocus(true);
+	         }
+
+	    });
+		yInput = new TextField(gc, gc.getDefaultFont(), 280,470,40,20, new ComponentListener()
+        {
+	         public void componentActivated(AbstractComponent source) {
+	            message = "Entered1: "+yInput.getText();
+	            yInput.setFocus(true);
+	         }
+
+	    });
 	}
 	
 	@Override
-	public void update(GameContainer gc, int i) throws SlickException {}
+	public void update(GameContainer gc, int i) throws SlickException {
+		Input input = gc.getInput();
+		
+		// TODO Clean this code.
+		// Null check doesn't work.
+		if (input.isKeyPressed(Input.KEY_ENTER) && xInput.getText() != "" && yInput.getText() != "") {
+			try {
+				int xChange = Integer.parseInt(xInput.getText());
+				int yChange = Integer.parseInt(yInput.getText());
+				if (Math.abs(xChange - xVelocity) <= 1 && Math.abs(yChange-yVelocity) <= 1) {
+					boolean crashed = false;
+					int x1 = x, y1 = y;
+					for (int c = 0; c < 10; c++) {
+						if (wall.equals(track.getColor(x1, y1))){
+							crashed = true;
+							x1 += xChange;
+							y1 -= yChange;
+						}
+					}
+					if (!crashed) {
+						x += xChange * 10;
+						y -= yChange * 10;
+						xVelocity = xChange;
+						yVelocity = yChange;
+					}  else {
+						xVelocity = 0;
+						yVelocity = 0;
+						xInput.setText("Boom");
+					}
+				} else {
+					xInput.setText("bad");
+					yInput.setText("num");
+				}
+			} catch (NumberFormatException nf) {
+				xInput.setText("only");
+				yInput.setText("num");
+			}
+		}
+	}
 	
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.drawImage(track, 0, 0);
 		g.setColor(Color.red);
-		g.drawOval(40, 490, 5, 5);
+		g.fillOval(x-3 ,y - 3,6,6);
+		xInput.render(gc, g);
+		yInput.render(gc, g);
 	}
 	
 	
@@ -107,6 +163,7 @@ public class Racer extends BasicGame {
 			appgc = new AppGameContainer(new Racer("Racer"));
 			appgc.setDisplayMode(700, 500, false);
 			appgc.start();
+			appgc.setTargetFrameRate(60);
 			appgc.setVSync(true);
 		}
 		catch (SlickException ex) {

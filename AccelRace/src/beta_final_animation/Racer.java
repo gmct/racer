@@ -113,21 +113,22 @@ public class Racer extends BasicGame {
 		// Null check doesn't work.
 		if (input.isKeyPressed(Input.KEY_ENTER) && xInput.getText() != "" && yInput.getText() != "") {
 			try {
+				
 				int xChange = Integer.parseInt(xInput.getText());
 				int yChange = Integer.parseInt(yInput.getText());
+				
 				if (Math.abs(xChange - xVelocity) <= 1 && Math.abs(yChange-yVelocity) <= 1) {
+					
 					boolean crashed = false;
 					int x1 = x, y1 = y;
-					System.out.println(x1 + " " + y1);
 					for (int c = 0; c < 10; c++) {
 						if (wall.equals(track.getColor(x1, y1))){
 							crashed = true;
-							System.out.println(x1 + " " + y1);
 						}
 						x1 += xChange;
 						y1 -= yChange;
-						System.out.println(x1 + " " + y1);
 					}
+					
 					if (!crashed) {
 						x += xChange * 10;
 						y -= yChange * 10;
@@ -138,6 +139,7 @@ public class Racer extends BasicGame {
 						yVelocity = 0;
 						xInput.setText("Boom");
 					}
+					
 				} else {
 					xInput.setText("bad");
 					yInput.setText("num");

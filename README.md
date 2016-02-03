@@ -18,3 +18,5 @@ for the two.
 In order to contribute to the project you will need to sync with the repo and configure Slick2D, a custom graphics package.
 If you are interested in contributing and are having a hard time setting up Slick2D then send me a message
 and I'll tell you what worked for me.
+
+The graphics utilize the Slick2D custom graphics library

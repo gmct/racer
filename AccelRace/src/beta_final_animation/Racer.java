@@ -118,12 +118,15 @@ public class Racer extends BasicGame {
 				if (Math.abs(xChange - xVelocity) <= 1 && Math.abs(yChange-yVelocity) <= 1) {
 					boolean crashed = false;
 					int x1 = x, y1 = y;
+					System.out.println(x1 + " " + y1);
 					for (int c = 0; c < 10; c++) {
 						if (wall.equals(track.getColor(x1, y1))){
 							crashed = true;
-							x1 += xChange;
-							y1 -= yChange;
+							System.out.println(x1 + " " + y1);
 						}
+						x1 += xChange;
+						y1 -= yChange;
+						System.out.println(x1 + " " + y1);
 					}
 					if (!crashed) {
 						x += xChange * 10;
